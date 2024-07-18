@@ -1,4 +1,4 @@
-import { Sidebar as ReactProsidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Sidebar as Prosidebar, Menu, MenuItem, MenuItemFR } from "react-pro-sidebar";
 import { useState } from "react";
 // import "react-pro-sidebar/dist/styles";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -16,6 +16,19 @@ import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
 import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
+import { AddBox, MenuBookOutlined } from "@mui/icons-material";
+
+const Item = ({ title, to, icon, selected, setSelected}) => {
+    const theme = useTheme;
+    const colors = tokens(theme.palette.mode);
+    return (
+        <MenuItem active={selected === title} style={{ color: colors.grey[100]}} onClick={() => setSelected(title)}>
+            <Typography>{title}</Typography>
+            <Link to={to} />
+        </MenuItem>
+    )
+}
+
 export const Sidebar = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -43,7 +56,87 @@ export const Sidebar = () => {
                
             }}
         >
-            Sidebar
+            <Prosidebar collapsed={isCollapsed}>
+                <Menu iconShape="square">
+                    <MenuItem 
+                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        icon={isCollapsed ? <MapOutlinedIcon /> : undefined}
+                        style={{
+                            margin: "10px 0 20px 0",
+                            color: colors.grey[100]
+                        }}
+                    >
+                        {/*Active side bar */}
+                        {!isCollapsed && (
+                                <Box 
+                                    display = "flex"
+                                    justifyContent= "space-between"
+                                    alignItems = "center"
+                                    ml = "15px"
+                                >
+                                    
+                                    <Typography variant="h3" color={colors.grey[100]}>
+                                        Admin
+                                    </Typography>
+                                    <IconButton onClick = {() => setIsCollapsed(!isCollapsed)}>
+                                        <MenuBookOutlined />
+                                    </IconButton>
+                                </Box>
+                            )
+                        }
+                    </MenuItem>
+                     
+                    {/* USER */}
+                    {!isCollapsed && (
+                        <Box
+                            mb = "25px"
+                        >
+                            <Box
+                                display = "flex"
+                                justifyContent = "center"
+                                alignItems = "center"
+                            >
+                                <img 
+                                    alt = "profile-user"
+                                    width = "100px"
+                                    height = "100px"
+                                    src = {`../../assets/user.png`}
+                                    style={{
+                                        cursor: "pointer",
+                                        borderRadius: "50%"
+                                    }}
+                                />
+                            </Box>
+
+                            <Box textAlign="center">
+                                <Typography 
+                                    variant="h2"
+                                    color={colors.grey[100]}
+                                    fontWeight="bold"
+                                    sx={{m: "10px 0 0 0"}}                         
+                                >
+                                    Puthi
+                                </Typography>
+                                <Typography
+                                    variant="h5"
+                                    color={colors.greenAccent[500]}
+                            
+                                >
+                                    Zea of RUPP
+                                </Typography>
+                            </Box>
+                        </Box>  
+                    )}
+
+                    {/*Menu item */}       
+                    <Box 
+                        paddingLeft={isCollapsed ? undefined : "10%"}
+                    >
+                        
+                    </Box>
+                </Menu>
+            </Prosidebar>
+           
         </Box>
     )
         
