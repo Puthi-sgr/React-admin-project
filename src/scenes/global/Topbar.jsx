@@ -15,7 +15,15 @@ export const TopBar = () => {
     const colorMode = useContext(ColorModeContext);
 
     return(
-            <Box display="flex" justifyContent="space-between" p={2}>
+            <Box
+            sx={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 1100,
+                backgroundColor: colors.primary[400],
+                boxShadow: '0px 2px 4px -1px rgba(0,0,0,0.2)',
+              }}
+            display="flex" justifyContent="space-between" p={2}>
                 {/* SEARCH BAR */}
                 <Box 
                     display="flex" 
