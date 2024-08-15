@@ -11,9 +11,10 @@ import { Contacts } from "./scenes/contacts/index";
 import { Form } from "./scenes/form/index";
 import { Calendar } from "./scenes/calendar/index";
 import { FAQ } from "./scenes/faq/index";
-// import Bar from "./scenes/global/Bar";
-// import Pie from "./scenes/global/Pie";
-// import Geography from "./scenes/global/Geography";
+import { Bar } from "./scenes/bar/index";
+import { Pie } from "./scenes/pie/index";
+import { Line } from "./scenes/line/index";
+import { Geography } from "./scenes/geography/index";
 
 const App = () => {
   const [theme, colorMode] = useMode();
@@ -35,9 +36,10 @@ const App = () => {
                 <Route path="/form" element={<Form />} />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/faq" element={<FAQ />} />
-                {/* <Route path="/bar" elements={<Bar />} /> */}
-                {/* <Route path="/pie" elements={<Pie />} /> */}
-                {/* <Route path="/geography" elements={<Geography />} /> */}
+                <Route path="/bar" element={<Bar />} />
+                <Route path="/pie" element={<Pie />} />
+                <Route path="/line" element={<Line />} />
+                <Route path="/geography" element={<Geography />} />
               </Routes>
             </main>
           </div>
