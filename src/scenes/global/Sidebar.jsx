@@ -6,7 +6,6 @@ import {
 } from "react-pro-sidebar";
 import { useState, useMemo } from "react";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
@@ -23,6 +22,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { AddBox, MenuBookOutlined } from "@mui/icons-material";
+import admin from "../../assets/admin.jpg";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -124,10 +124,13 @@ export const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={admin}
                   style={{
                     cursor: "pointer",
                     borderRadius: "50%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    border: `2px solid ${colors.grey[100]}`,
                   }}
                 />
               </Box>

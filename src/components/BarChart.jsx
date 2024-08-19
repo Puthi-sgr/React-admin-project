@@ -4,12 +4,12 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
 import { mockBarData as data } from "../data/mockData";
 
-export const BarChart = ({ isDashBoard = false }) => {
+export const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const themeObject = {
-    background: colors.primary[400],
+    background: isDashboard ? "transparent" : colors.primary[400],
     text: {
       fontSize: 12,
       fill: colors.grey[100],
@@ -122,41 +122,15 @@ export const BarChart = ({ isDashBoard = false }) => {
   return (
     <ResponsiveBar
       data={data}
-      theme={
-        themeObject
-        // text: {
-        //   fill: colors.grey[100],
-        // },
-        // axis: {
-        //   domain: {
-        //     line: {
-        //       stroke: colors.grey[100],
-        //     },
-        //   },
-        //   legend: {
-        //     text: {
-        //       fill: colors.grey[100],
-        //     },
-        //   },
-        //   ticks: {
-        //     line: {
-        //       stroke: colors.grey[100],
-        //       strokeWidth: 1,
-        //     },
-        //     text: {
-        //       fill: colors.grey[100],
-        //     },
-        //   },
-        // },
-        // legends: {
-        //   text: {
-        //     fill: colors.grey[100],
-        //   },
-        // },
-      }
+      theme={themeObject}
       keys={["users", "tasks", "reports", "tickets", "projects", "meetings"]}
       indexBy="month"
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{
+        top: 50,
+        right: isDashboard ? 1 : 70,
+        bottom: 50,
+        left: isDashboard ? 30 : 60,
+      }}
       padding={0.45}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
@@ -203,7 +177,7 @@ export const BarChart = ({ isDashBoard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashBoard ? undefined : "month",
+        legend: isDashboard ? undefined : "month",
         legendPosition: "middle",
         legendOffset: 32,
         truncateTickAt: 0,
@@ -212,40 +186,48 @@ export const BarChart = ({ isDashBoard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashBoard ? undefined : "category",
+        legend: isDashboard ? undefined : "category",
         legendPosition: "middle",
         legendOffset: -40,
         truncateTickAt: 0,
       }}
       totalsOffset={0}
-      labelTextColor={{
-        from: "color",
-        modifiers: [["darker", 1.6]],
-      }}
-      legends={[
-        {
-          dataFrom: "keys",
-          anchor: "top-right",
-          direction: "column",
-          justify: false,
-          translateX: 86,
-          translateY: 20,
-          itemsSpacing: 2,
-          itemWidth: 102,
-          itemHeight: 21,
-          itemDirection: "left-to-right",
-          itemOpacity: 0.85,
-          symbolSize: 20,
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemOpacity: 1,
+      labelTextColor={
+        isDashboard
+          ? "transparent"
+          : {
+              from: "color",
+              modifiers: [["darker", 1.6]],
+            }
+      }
+      legends={
+        isDashboard
+          ? undefined
+          : [
+              {
+                dataFrom: "keys",
+                anchor: "top-right",
+                direction: "column",
+                justify: false,
+                translateX: 86,
+                translateY: 20,
+                itemsSpacing: 2,
+                itemWidth: 102,
+                itemHeight: 21,
+                itemDirection: "left-to-right",
+                itemOpacity: 0.85,
+                symbolSize: 20,
+                effects: [
+                  {
+                    on: "hover",
+                    style: {
+                      itemOpacity: 1,
+                    },
+                  },
+                ],
               },
-            },
-          ],
-        },
-      ]}
+            ]
+      }
       role="application"
       ariaLabel="Nivo bar chart demo"
       barAriaLabel={(e) =>

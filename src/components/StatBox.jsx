@@ -13,22 +13,23 @@ export const StatBox = ({ title, subtitle, icon, progress, increase }) => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        p="0 10px 0 0"
+        p="0 0px 0 0"
       >
-        {icon}
+        <Box>
+          {icon}
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            sx={{ color: colors.grey[100] }}
+          >
+            {title}
+          </Typography>
+        </Box>
         <Box>
           <ProgressCircles progress={progress} />
         </Box>
       </Box>
-      <Box>
-        <Typography
-          variant="h4"
-          fontWeight="bold"
-          sx={{ color: colors.grey[100] }}
-        >
-          {title}
-        </Typography>
-      </Box>
+
       <Box display="flex" justifyContent="space-between">
         <Typography
           variant="h5"

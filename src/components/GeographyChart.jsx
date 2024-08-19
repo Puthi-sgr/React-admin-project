@@ -10,7 +10,7 @@ export const GeographyChart = (isDashboard = false) => {
   const colors = tokens(theme.palette.mode);
 
   const themeObject = {
-    background: colors.primary[400],
+    background: isDashboard ? "transparent" : colors.primary[400],
     text: {
       fontSize: 11,
       fill: colors.grey[100],
@@ -130,15 +130,15 @@ export const GeographyChart = (isDashboard = false) => {
       unknownColor="#666666"
       label="properties.name"
       valueFormat=".2s"
-      projectionScale={!isDashboard ? 40 : 150}
+      projectionScale={!isDashboard ? 40 : 100}
       projectionTranslation={!isDashboard ? [0.49, 0.6] : [0.5, 0.5]}
       projectionRotation={[0, 0, 0]}
-      enableGraticule={true}
+      enableGraticule={isDashboard ? false : true}
       graticuleLineColor="#dddddd"
       borderWidth={1.5}
       borderColor="#152538"
       legends={
-        isDashboard
+        !isDashboard
           ? [
               {
                 anchor: "bottom-left",

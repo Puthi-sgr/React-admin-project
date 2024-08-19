@@ -10,7 +10,7 @@ export const LineChart = ({ isDashboard = false }) => {
   const colors = tokens(theme.palette.mode);
 
   const themeObject = {
-    background: colors.primary[400],
+    background: isDashboard ? "transparent" : colors.primary[400],
     text: {
       fontSize: 11,
       fill: colors.grey[100],
