@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, useTheme, Typography } from "@mui/material";
 import { tokens } from "../theme";
 import { ProgressCircles } from "./ProgressCircles";
+import { LanguageModeContext, useLanguageStyle } from "../languageTheme";
 
 export const StatBox = ({ title, subtitle, icon, progress, increase }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { languageTheme } = useContext(LanguageModeContext);
+  const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
   return (
     <Box width="100%" m="0 30px">
@@ -35,6 +38,7 @@ export const StatBox = ({ title, subtitle, icon, progress, increase }) => {
           variant="h5"
           fontWeight="bold"
           sx={{ color: colors.greenAccent[500] }}
+          fontFamily={fontStyle.fontFamily}
         >
           {subtitle}
         </Typography>
@@ -42,6 +46,7 @@ export const StatBox = ({ title, subtitle, icon, progress, increase }) => {
           variant="h5"
           fontStyle="italic"
           sx={{ color: colors.greenAccent[600] }}
+
         >
           {increase}
         </Typography>

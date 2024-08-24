@@ -123,6 +123,9 @@ export const tokens = (mode) =>
 export const themeSettings = (mode) => {
   const colors = tokens(mode);
 
+  const getFontFamily = () => {
+    return ["Poppins", "sans-serif"].join(", ");
+  };
   return {
     palette: {
       mode: mode,
@@ -161,30 +164,30 @@ export const themeSettings = (mode) => {
           }),
     },
     typography: {
-      fontFamily: ["Poppins", "sans-serif"].join(", "),
+      fontFamily: getFontFamily(),
       fontSize: 12,
       h1: {
-        fontFamily: ["Poppins", "sans-serif"].join(", "),
+        fontFamily: getFontFamily(),
         fontSize: 40,
       },
       h2: {
-        fontFamily: ["Poppins", "sans-serif"].join(", "),
+        fontFamily: getFontFamily(),
         fontSize: 32,
       },
       h3: {
-        fontFamily: ["Poppins", "sans-serif"].join(", "),
+        fontFamily: getFontFamily(),
         fontSize: 24,
       },
       h4: {
-        fontFamily: ["Poppins", "sans-serif"].join(", "),
+        fontFamily: getFontFamily(),
         fontSize: 20,
       },
       h5: {
-        fontFamily: ["Poppins", "sans-serif"].join(", "),
+        fontFamily: getFontFamily(),
         fontSize: 16,
       },
       h6: {
-        fontFamily: ["Poppins", "sans-serif"].join(", "),
+        fontFamily: getFontFamily(),
         fontSize: 14,
       },
     },

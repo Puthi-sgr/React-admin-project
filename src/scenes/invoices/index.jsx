@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LanguageModeContext, useLanguageStyle } from "../../languageTheme";
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -8,48 +9,62 @@ import { Header } from "../../components/Header";
 export const Invoices = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { languageTheme } = useContext(LanguageModeContext);
+  const invoiceTheme = languageTheme?.menu.data.invoices;
+  const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
   const columns = [
     {
       field: "id",
-      headerName: "ID",
+      headerName: invoiceTheme.table.id,
       flex: 0.5,
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: invoiceTheme.table.name,
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
       field: "email",
-      headerName: "Email",
+      headerName: invoiceTheme.table.email,
       flex: 1,
     },
     {
       field: "cost",
-      headerName: "Cost",
+      headerName: invoiceTheme.table.cost,
       flex: 1,
-      renderCell: (params) => {
-        <Typography color={colors.greenAccent[500]}>
+      renderCell: (params) => (
+        <Typography
+          color={colors.greenAccent[500]}
+          sx={{
+            display: "flex",
+            justifyContent: "start",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
           $ {params.row.cost}
-        </Typography>;
-      },
+        </Typography>
+      ),
     },
     {
       field: "phone",
-      headerName: "Phone",
+      headerName: invoiceTheme.table.phone,
       flex: 1,
     },
     {
       field: "data",
-      headerName: "Data",
+      headerName: invoiceTheme.table.data,
       flex: 1,
     },
   ];
   return (
     <Box m="20px">
-      <Header title="Invoices" subtitle="The list of invoices" />
+      <Header
+        title={invoiceTheme.invoicesTitle}
+        subtitle={invoiceTheme.invoicesSubtitle}
+      />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -83,6 +98,7 @@ export const Invoices = () => {
           "&. .MuiCheckBox-root": {
             colors: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-columnHeaderTitle": { ...fontStyle },
         }}
       >
         <DataGrid

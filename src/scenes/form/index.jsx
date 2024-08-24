@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { TextField, useMediaQuery, Box, Button } from "@mui/material";
+import { TextField, useMediaQuery, Box, Button, Typography } from "@mui/material";
 import { Header } from "../../components/Header";
+import { LanguageModeContext, useLanguageStyle } from "../../languageTheme";
+
 export const Form = () => {
-  const isNonMobile = useMediaQuery("(min-width:600px)"); //is a boolean if the width is less that 600px it will triggers it
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const { languageTheme } = useContext(LanguageModeContext);
+  const formTheme = languageTheme?.menu.pages.profileForm;
+  const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
   const handleFormSubmit = (values, { resetForm }) => {
     console.log(values);
     resetForm();
   };
-  //function that is going to trigger when we submit
 
   const initialValues = {
     firstName: "",
@@ -32,9 +36,13 @@ export const Form = () => {
       .matches(phoneRegExp, "Phone number is not valid")
       .required("Required"),
   });
+
   return (
     <Box m="20px">
-      <Header title="CREATE USER" subtitle={"Create a new user"} />
+      <Header
+        title={formTheme.profileFormTitle}
+        subtitle={formTheme.profileFormSubtitle}
+      />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -62,7 +70,7 @@ export const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label="First Name"
+                label={<Typography sx={fontStyle}>{formTheme.form.firstName}</Typography>}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.firstName}
@@ -70,12 +78,15 @@ export const Form = () => {
                 error={!!touched.firstName && !!errors.firstName}
                 helperText={touched.firstName && errors.firstName}
                 sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  sx: fontStyle
+                }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Last Name"
+                label={<Typography sx={fontStyle}>{formTheme.form.lastName}</Typography>}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.lastName}
@@ -83,12 +94,15 @@ export const Form = () => {
                 error={!!touched.lastName && !!errors.lastName}
                 helperText={touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
+                InputProps={{
+                  sx: fontStyle
+                }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="email"
+                label={<Typography sx={fontStyle}>{formTheme.form.email}</Typography>}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.email}
@@ -96,12 +110,15 @@ export const Form = () => {
                 error={!!touched.email && !!errors.email}
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
+                InputProps={{
+                  sx: fontStyle
+                }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Contact Number"
+                label={<Typography sx={fontStyle}>{formTheme.form.contactNumber}</Typography>}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.contact}
@@ -109,12 +126,15 @@ export const Form = () => {
                 error={!!touched.contact && !!errors.contact}
                 helperText={touched.contact && errors.contact}
                 sx={{ gridColumn: "span 4" }}
+                InputProps={{
+                  sx: fontStyle
+                }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 1"
+                label={<Typography sx={fontStyle}>{formTheme.form.address1}</Typography>}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.address1}
@@ -122,12 +142,15 @@ export const Form = () => {
                 error={!!touched.address1 && !!errors.address1}
                 helperText={touched.address1 && errors.address1}
                 sx={{ gridColumn: "span 4" }}
+                InputProps={{
+                  sx: fontStyle
+                }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="Address 1"
+                label={<Typography sx={fontStyle}>{formTheme.form.address2}</Typography>}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.address2}
@@ -135,11 +158,14 @@ export const Form = () => {
                 error={!!touched.address2 && !!errors.address2}
                 helperText={touched.address2 && errors.address2}
                 sx={{ gridColumn: "span 4" }}
+                InputProps={{
+                  sx: fontStyle
+                }}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New User
+                <Typography sx={fontStyle}>{formTheme.form.buttonLabel}</Typography>
               </Button>
             </Box>
           </form>

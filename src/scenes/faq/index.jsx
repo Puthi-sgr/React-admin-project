@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { LanguageModeContext } from "../../languageTheme";
 import { Header } from "../../components/Header";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -10,10 +11,11 @@ import { Box, Typography, useTheme } from "@mui/material";
 export const FAQ = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
+  const { languageTheme } = useContext(LanguageModeContext);
+  const faqTheme = languageTheme?.menu.pages.faq;
   return (
     <Box m="20px">
-      <Header title="FAQ" subtitle="Frequently asked questions page" />
+      <Header title={faqTheme.faqTitle} subtitle={faqTheme.faqSubtitle} />
       <AccordionComponent
         title="User Management"
         question="How can I efficiently manage user roles and permissions within the admin system?"

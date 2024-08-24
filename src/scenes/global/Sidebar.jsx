@@ -1,11 +1,7 @@
-import {
-  Sidebar as ProSidebar,
-  Menu,
-  MenuItem,
-  MenuItemFR,
-} from "react-pro-sidebar";
-import { useState, useMemo } from "react";
-import { useEffect } from "react";
+import React, { useContext } from "react";
+import { LanguageModeContext, useLanguageStyle } from "../../languageTheme";
+import { Sidebar as ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { useState, useEffect } from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
@@ -22,18 +18,22 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import admin from "../../assets/admin.jpg";
-const Item = ({ title, to, icon, selected, setSelected }) => {
+
+const Item = ({ activeLabel, title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { languageTheme } = useContext(LanguageModeContext);
+  const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
   return (
     <Link to={to} style={{ textDecoration: "none", color: "inherit" }}>
       <MenuItem
-        active={selected === title}
+        activeLabel={activeLabel}
+        active={selected === activeLabel}
         style={{
           color: colors.grey[100],
         }}
-        onClick={() => setSelected(title)}
+        onClick={() => setSelected(activeLabel)}
       >
         <Box
           sx={{
@@ -43,7 +43,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
           }}
         >
           <Box style={{ marginRight: "10px" }}>{icon}</Box>
-          <Typography>{title}</Typography>
+          <Typography style={fontStyle}>{title}</Typography>
         </Box>
       </MenuItem>
     </Link>
@@ -53,12 +53,16 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 export const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { languageTheme } = useContext(LanguageModeContext);
+  const fontStyle = useLanguageStyle(languageTheme.languageStatus);
+
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
   useEffect(() => {
     console.log(selected);
   }, [selected]);
+
   return (
     <Box
       sx={{
@@ -78,7 +82,6 @@ export const Sidebar = () => {
           color: "#6870fa !important",
           transition: "ease-in-out 0.20s",
         },
-
         "& .ps-sidebar-root": {
           height: "100%",
         },
@@ -97,7 +100,6 @@ export const Sidebar = () => {
               color: colors.grey[100],
             }}
           >
-            {/*Active side bar */}
             {!isCollapsed && (
               <Box
                 display="flex"
@@ -115,7 +117,6 @@ export const Sidebar = () => {
             )}
           </MenuItem>
 
-          {/* USER */}
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
@@ -150,11 +151,10 @@ export const Sidebar = () => {
             </Box>
           )}
 
-          {/*Menu item */}
-
           <Box marginLeft={!isCollapsed ? undefined : "0"}>
             <Item
-              title="Dashboard"
+              activeLabel={languageTheme?.menu.dashboard.dashboardStatus}
+              title={languageTheme?.menu.dashboard.dashboardLabel}
               to="/"
               icon={
                 <HomeOutlinedIcon
@@ -169,12 +169,14 @@ export const Sidebar = () => {
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
+              style={fontStyle}
             >
-              Data
+              {languageTheme?.menu.data.dataLabel}
             </Typography>
 
             <Item
-              title="Manage team"
+              activeLabel={languageTheme?.menu.data.manageTeam.manageTeamStatus}
+              title={languageTheme?.menu.data.manageTeam.manageTeamLabel}
               to="/team"
               icon={
                 <PeopleOutlinedIcon
@@ -185,7 +187,8 @@ export const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
+              activeLabel={languageTheme?.menu.data.contacts.contactStatus}
+              title={languageTheme?.menu.data.contacts.contactsLabel}
               to="/contacts"
               icon={
                 <ContactsOutlinedIcon
@@ -196,7 +199,8 @@ export const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Invoice Balances"
+              activeLabel={languageTheme?.menu.data.invoices.invoiceStatus}
+              title={languageTheme?.menu.data.invoices.invoicesLabel}
               to="/invoice"
               icon={
                 <ReceiptOutlinedIcon
@@ -211,12 +215,16 @@ export const Sidebar = () => {
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
+              style={fontStyle}
             >
-              Pages
+              {languageTheme?.menu.pages.pagesLabel}
             </Typography>
 
             <Item
-              title="Profile Form"
+              activeLabel={
+                languageTheme?.menu.pages.profileForm.profileFormStatus
+              }
+              title={languageTheme?.menu.pages.profileForm.profileFormLabel}
               to="/form"
               icon={
                 <PersonOutlinedIcon
@@ -227,7 +235,8 @@ export const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
+              activeLabel={languageTheme?.menu.pages.calendar.calendarStatus}
+              title={languageTheme?.menu.pages.calendar.calendarLabel}
               to="/calendar"
               icon={
                 <CalendarTodayOutlinedIcon
@@ -238,7 +247,8 @@ export const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title={"FAQ"}
+              activeLabel={languageTheme?.menu.pages.faq.faqStatus}
+              title={languageTheme?.menu.pages.faq.faqLabel}
               to="/faq"
               icon={
                 <HelpCenterOutlinedIcon
@@ -253,12 +263,14 @@ export const Sidebar = () => {
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
+              style={fontStyle}
             >
-              Charts
+              {languageTheme?.menu.charts.chartsLabel}
             </Typography>
 
             <Item
-              title="Bar Chart"
+              activeLabel={languageTheme?.menu.charts.BarChart.BarChartStatus}
+              title={languageTheme?.menu.charts.BarChart.BarChartLabel}
               to="/bar"
               icon={
                 <BarChartOutlinedIcon
@@ -269,7 +281,8 @@ export const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Pie Chart"
+              activeLabel={languageTheme?.menu.charts.PieChart.PieChartStatus}
+              title={languageTheme?.menu.charts.PieChart.PieChartLabel}
               to="/pie"
               icon={
                 <PieChartOutlinedIcon
@@ -280,7 +293,8 @@ export const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Line Chart"
+              activeLabel={languageTheme?.menu.charts.LineChart.LineChartStatus}
+              title={languageTheme?.menu.charts.LineChart.LineChartLabel}
               to="/line"
               icon={
                 <TimelineOutlinedIcon
@@ -291,7 +305,12 @@ export const Sidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Geography Chart"
+              activeLabel={
+                languageTheme?.menu.charts.GeographyChart.GeographyChartStatus
+              }
+              title={
+                languageTheme?.menu.charts.GeographyChart.GeographyChartLabel
+              }
               to="/geography"
               icon={
                 <MapOutlinedIcon

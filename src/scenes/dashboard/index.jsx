@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { Header } from "../../components/Header";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { LanguageModeContext, useLanguageStyle } from "../../languageTheme";
 import { StatBox } from "../../components/StatBox";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
@@ -9,7 +11,6 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import { LineChart } from "../../components/LineChart";
-import { PieChart } from "../../components/PieChart";
 import { BarChart } from "../../components/BarChart";
 import { GeographyChart } from "../../components/GeographyChart";
 import { ProgressCircles } from "../../components/ProgressCircles";
@@ -17,13 +18,17 @@ import { ProgressCircles } from "../../components/ProgressCircles";
 export const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { languageTheme } = useContext(LanguageModeContext);
+  const fontStyle = useLanguageStyle(languageTheme.languageStatus);
+
+  const dashboardTheme = languageTheme?.menu.dashboard;
 
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header
-          title="DASHBOARD"
-          subtitle="Welcome to your dashboard"
+          title={dashboardTheme.dashboardTitle}
+          subtitle={dashboardTheme.dashboardSubtitle}
         />
 
         <Box>
@@ -34,10 +39,11 @@ export const Dashboard = () => {
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
+              ...fontStyle,
             }}
           >
             <DownloadOutlined sx={{ mr: "10px" }} />
-            Download reports
+            {dashboardTheme.buttonLabel}
           </Button>
         </Box>
       </Box>
@@ -60,7 +66,7 @@ export const Dashboard = () => {
         >
           <StatBox
             title="678"
-            subtitle="Emails Sent"
+            subtitle={dashboardTheme.dashboardSummary.emailTitle}
             progress="0.71"
             increase="+ 2%"
             icon={
@@ -79,7 +85,7 @@ export const Dashboard = () => {
         >
           <StatBox
             title="1,245"
-            subtitle="New Users"
+            subtitle={dashboardTheme.dashboardSummary.newUserTitle}
             progress="0.65"
             increase="+ 14%"
             icon={
@@ -98,7 +104,7 @@ export const Dashboard = () => {
         >
           <StatBox
             title="$31,225"
-            subtitle="Revenue"
+            subtitle={dashboardTheme.dashboardSummary.revenueTitle}
             progress="0.50"
             increase="+ 21%"
             icon={
@@ -117,7 +123,7 @@ export const Dashboard = () => {
         >
           <StatBox
             title="3,441"
-            subtitle="Traffic"
+            subtitle={dashboardTheme.dashboardSummary.trafficTitle}
             progress="0.30"
             increase="+ 5%"
             icon={
@@ -145,8 +151,9 @@ export const Dashboard = () => {
                 variant="h3"
                 fontWeight="500"
                 color={colors.grey[100]}
+                sx={fontStyle}
               >
-                Revenue Generated
+                {dashboardTheme.financialOverview.revenueTitle}
               </Typography>
               <Typography
                 variant="h3"
@@ -186,8 +193,13 @@ export const Dashboard = () => {
             colors={colors.grey[100]}
             p="15px"
           >
-            <Typography colors={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transaction
+            <Typography
+              colors={colors.grey[100]}
+              variant="h5"
+              fontWeight="600"
+              sx={fontStyle}
+            >
+              {dashboardTheme.financialOverview.transactionTitle}
             </Typography>
           </Box>
           {mockTransactions.map((transaction, i) => (
@@ -230,8 +242,8 @@ export const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
+          <Typography variant="h5" fontWeight="600" sx={fontStyle}>
+            {dashboardTheme.saleAnalytics.campaign.campaignTitle}
           </Typography>
           <Box
             display="flex"
@@ -248,8 +260,8 @@ export const Dashboard = () => {
             >
               $67,572$
             </Typography>
-            <Typography variant="h5" fontWeight="600">
-              Include extra spending
+            <Typography variant="h5" fontWeight="600" sx={fontStyle}>
+              {dashboardTheme.saleAnalytics.campaign.campaignSubtitle}
             </Typography>
           </Box>
         </Box>
@@ -259,8 +271,12 @@ export const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
-          <Typography variant="h5" fontWeight="600" sx={{ p: "" }}>
-            Sales Quantity
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ ...fontStyle, p: "" }}
+          >
+            {dashboardTheme.saleAnalytics.salesTitle}
           </Typography>
           <Box height="100%" mt="-20px">
             <BarChart isDashboard={true} />
@@ -272,8 +288,12 @@ export const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
-          <Typography variant="h5" fontWeight="600" sx={{ mb: "15px" }}>
-            Geography based traffic
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ ...fontStyle, mb: "15px" }}
+          >
+            {dashboardTheme.saleAnalytics.geographyTitle}
           </Typography>
           <Box height="250px" mt="0px" mb="20px">
             <GeographyChart overflow="hidden" isDashboard={true} />

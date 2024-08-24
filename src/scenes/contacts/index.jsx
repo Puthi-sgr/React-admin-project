@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Grid, Toolbar, Typography, useTheme } from "@mui/material";
+import { LanguageModeContext } from "../../languageTheme";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataContacts } from "../../data/mockData";
@@ -8,56 +9,58 @@ import { Header } from "../../components/Header";
 export const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { languageTheme } = useContext(LanguageModeContext);
+  const contactTheme = languageTheme?.menu.data.contacts;
 
   const columns = [
     {
       field: "id",
-      headerName: "ID",
+      headerName: contactTheme.table.id,
       flex: 0.5,
     },
     {
       field: "registrarId",
-      headerName: "Registrar ID",
+      headerName: contactTheme.table.registrarId,
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
       field: "email",
-      headerName: "Email",
+      headerName: contactTheme.table.email,
       flex: 1,
     },
     {
       field: "age",
-      headerName: "Age",
+      headerName: contactTheme.table.age,
       headerAlign: "left",
       align: "left",
     },
     {
       field: "phone",
-      headerName: "Phone",
+      headerName: contactTheme.table.phone,
       flex: 1,
     },
     {
       field: "address",
-      headerName: "Address",
+      headerName: contactTheme.table.address,
       flex: 1,
     },
     {
       field: "city",
-      headerName: "City",
+      headerName: contactTheme.table.city,
       flex: 1,
     },
     {
       field: "zipCode",
-      header: "ZipCode",
+      header: contactTheme.table.zipCode,
       flex: 1,
     },
   ];
   return (
     <Box m="20px">
       <Header
-        title="Contact"
-        subtitle="The list of contacts for future reference"
+        title={contactTheme.contactTitle}
+        subtitle={contactTheme.contactSubtitle}
       />
       <Box
         m="40px 0 0 0"

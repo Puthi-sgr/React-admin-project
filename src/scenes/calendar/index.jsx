@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Box,
   List,
@@ -7,6 +7,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { LanguageModeContext, useLanguageStyle } from "../../languageTheme";
 import { Header } from "../../components/Header";
 import FullCalendar from "@fullcalendar/react";
 import { formatDate } from "@fullcalendar/core";
@@ -20,7 +21,10 @@ export const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const { languageTheme } = useContext(LanguageModeContext);
+  const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
+  const calendarTheme = languageTheme?.menu.pages.calendar;
   const handleDateClick = (selected) => {
     console.log(selected);
     const title = prompt("please enter a new title for you event");
@@ -50,8 +54,8 @@ export const Calendar = () => {
   return (
     <Box m="20px">
       <Header
-        title={"Calendar"}
-        subtitle={"View you calendar date and make schedules"}
+        title={calendarTheme.calendarTitle}
+        subtitle={calendarTheme.calendarSubtitle}
       />
       <Box display="flex" justifyContent="space-between">
         {/* {Calendar sidebar} */}
@@ -61,7 +65,9 @@ export const Calendar = () => {
           p="15px"
           borderRadius="4px"
         >
-          <Typography variant="h5">Events</Typography>
+          <Typography variant="h5" sx={fontStyle}>
+            {calendarTheme.event}
+          </Typography>
           <List>
             {currentEvents.map((event) => (
               <ListItem
@@ -73,7 +79,7 @@ export const Calendar = () => {
                 }}
               >
                 <ListItemText
-                  primary={event.title}
+                  primary={<Typography>{event.title}</Typography>}
                   secondary={
                     <Typography>
                       {formatDate(event.start, {
