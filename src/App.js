@@ -17,14 +17,15 @@ import { Pie } from "./scenes/pie/index";
 import { Line } from "./scenes/line/index";
 import { Geography } from "./scenes/geography/index";
 import { useLanguageMode } from "./languageTheme";
+import { CrispChat } from "./Crispchat";
 const App = () => {
   const [languageMode, languageTheme, language] = useLanguageMode();
-  const [theme, colorMode] = useMode();
+  const [theme, colorMode, colorPaletteMode] = useMode();
   return (
     <LanguageModeContext.Provider
       value={{ languageMode, languageTheme, language }}
     >
-      <ColorModeContext.Provider value={colorMode}>
+      <ColorModeContext.Provider value={[colorMode, colorPaletteMode]}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <div className="App">
@@ -45,6 +46,7 @@ const App = () => {
                   <Route path="/line" element={<Line />} />
                   <Route path="/geography" element={<Geography />} />
                 </Routes>
+                <CrispChat />
               </main>
             </div>
           </div>

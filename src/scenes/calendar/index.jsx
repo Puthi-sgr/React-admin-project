@@ -51,6 +51,11 @@ export const Calendar = () => {
       selected.event.remove();
     }
   }; //will trigger when click on an event
+
+  const monthFilter = (fullCalendarMonth) => {
+    return languageTheme.month.filter((mo) => mo === fullCalendarMonth);
+  };
+
   return (
     <Box m="20px">
       <Header
@@ -109,6 +114,10 @@ export const Calendar = () => {
               center: "title",
               right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
+            titleFormat={{
+              month: "long",
+            }}
+            monthNames={languageTheme.month}
             initialView="dayGridMonth"
             editable={true}
             selectMirror={true}

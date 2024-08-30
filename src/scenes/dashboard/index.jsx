@@ -7,9 +7,9 @@ import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlined from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import { LineChart } from "../../components/LineChart";
 import { BarChart } from "../../components/BarChart";
 import { GeographyChart } from "../../components/GeographyChart";
@@ -84,10 +84,10 @@ export const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,245"
+            title="80"
             subtitle={dashboardTheme.dashboardSummary.newUserTitle}
             progress="0.65"
-            increase="+ 14%"
+            increase="+ 21%"
             icon={
               <PersonAddIcon
                 sx={{ colors: colors.greenAccent[600], fontSize: "26px" }}
@@ -103,12 +103,12 @@ export const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="$31,225"
+            title="$18,000"
             subtitle={dashboardTheme.dashboardSummary.revenueTitle}
             progress="0.50"
-            increase="+ 21%"
+            increase="+ 13%"
             icon={
-              <PointOfSaleIcon
+              <AttachMoneyOutlinedIcon
                 sx={{ colors: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -122,12 +122,12 @@ export const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="3,441"
-            subtitle={dashboardTheme.dashboardSummary.trafficTitle}
+            title="-$13,000"
+            subtitle={dashboardTheme.dashboardSummary.expenseTitle}
             progress="0.30"
-            increase="+ 5%"
+            increase="+ 8%"
             icon={
-              <TrafficIcon
+              <AddShoppingCartOutlinedIcon
                 sx={{ colors: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -160,7 +160,7 @@ export const Dashboard = () => {
                 fontWeight="500"
                 color={colors.greenAccent[500]}
               >
-                $91,328,98
+                $156,100
               </Typography>
             </Box>
 
@@ -258,7 +258,7 @@ export const Dashboard = () => {
               color={colors.greenAccent[500]}
               sx={{ mt: "15px" }}
             >
-              $67,572$
+              $9,120
             </Typography>
             <Typography variant="h5" fontWeight="600" sx={fontStyle}>
               {dashboardTheme.saleAnalytics.campaign.campaignSubtitle}

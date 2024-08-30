@@ -1,5 +1,5 @@
 import { Box, Icon, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ColorModeContext, tokens, toggleColorMode } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -10,13 +10,24 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { LanguageModeContext } from "../../languageTheme";
 import Flag from "react-world-flags";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 export const TopBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const colorMode = useContext(ColorModeContext);
+  const [colorMode, colorPaletteMode] = useContext(ColorModeContext);
   const { languageMode, languageTheme } = useContext(LanguageModeContext);
   const languageStatus = languageTheme?.languageStatus;
+
+  const [age, setAge] = useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+    colorPaletteMode.colorPaletteSelector(event.target.value);
+  };
 
   return (
     <Box
@@ -42,13 +53,13 @@ export const TopBar = () => {
       </Box>
       {/*Icon */}
       <Box display="flex" gap="0.5rem">
-        <IconButton onClick={colorMode.toggleColorMode}>
+        {/* <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (
             <LightModeOutlinedIcon />
           )}
-        </IconButton>
+        </IconButton> */}
         <IconButton
           sx={{ padding: 0, overflow: "hidden" }}
           onClick={languageMode.toggleLanguageMode}
@@ -95,7 +106,22 @@ export const TopBar = () => {
           <SettingsOutlinedIcon />
         </IconButton>
         <IconButton>
-          <PersonOutlinedIcon />
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              label="Age"
+              onChange={handleChange}
+            >
+              <MenuItem value={"skyBlue"}>Sky Blue</MenuItem>
+              <MenuItem value={"blue"}>Blue</MenuItem>
+              <MenuItem value={"red"}>Red demon</MenuItem>
+              <MenuItem value={"dark"}>Dark</MenuItem>
+              <MenuItem value={"light"}>Light</MenuItem>
+            </Select>
+          </FormControl>
         </IconButton>
       </Box>
     </Box>

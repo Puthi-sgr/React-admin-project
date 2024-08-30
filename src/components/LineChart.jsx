@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useTheme } from "@emotion/react";
 import { ResponsiveLine } from "@nivo/line";
-
 import { tokens } from "../theme";
-import { mockLineData as data } from "../data/mockData";
+import { mockLineData } from "../data/mockData";
+import { geoLocalizedMockData } from "../data/mockData";
+import { LanguageModeContext } from "../languageTheme";
 
 export const LineChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { languageTheme } = useContext(LanguageModeContext);
 
   const themeObject = {
     background: isDashboard ? "transparent" : colors.primary[400],
@@ -35,10 +37,15 @@ export const LineChart = ({ isDashboard = false }) => {
       ticks: {
         line: {
           stroke: colors.greenAccent[500],
-          strokeWidth: 1,
+          strokeWidth: 2,
         },
         text: {
-          fontSize: 11,
+          fontSize:
+            languageTheme.languageStatus === "en" ? "0.70rem" : "0.60rem",
+          fontFamily:
+            languageTheme.languageStatus === "kh"
+              ? "'Noto Sans Khmer', sans-serif"
+              : "inherit",
           fill: colors.grey[100],
           outlineWidth: 0,
           outlineColor: "transparent",
@@ -47,8 +54,9 @@ export const LineChart = ({ isDashboard = false }) => {
     },
     grid: {
       line: {
-        stroke: colors.grey[800],
+        stroke: colors.primary[300],
         strokeWidth: 1,
+        opacity: 0.2,
       },
     },
     legends: {
@@ -121,9 +129,9 @@ export const LineChart = ({ isDashboard = false }) => {
 
   return (
     <ResponsiveLine
-      data={data}
+      data={mockLineData(languageTheme.month)}
       theme={themeObject}
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: 140, bottom: 50, left: 100 }}
       xScale={{ type: "point" }}
       yScale={{
         type: "linear",
@@ -139,7 +147,7 @@ export const LineChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "transportation",
+        legend: "2023 - 2024",
         legendOffset: 36,
         legendPosition: "middle",
         truncateTickAt: 0,
@@ -149,15 +157,20 @@ export const LineChart = ({ isDashboard = false }) => {
         tickValues: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "count",
+        legend: isDashboard ? null : "amount",
         legendOffset: -40,
         legendPosition: "middle",
         truncateTickAt: 0,
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }}
+      // colors={isDashboard ? { datum: "color" } : { scheme: "dark2" }}
+      colors={
+        // theme.palette.mode === "dark" ? { datum: "color" } : { scheme: "dark2" }
+        { datum: "color" }
+      }
+      lineWidth={4}
       pointSize={10}
       pointColor={{ theme: "background" }}
-      pointBorderWidth={2}
+      pointBorderWidth={3}
       pointBorderColor={{ from: "serieColor" }}
       pointLabel="data.yFormatted"
       pointLabelYOffset={-12}

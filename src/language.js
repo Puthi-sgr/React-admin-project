@@ -1,5 +1,19 @@
 export const englishLabel = {
   languageStatus: "en",
+  month: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
   menu: {
     dashboard: {
       dashboardStatus: "DB",
@@ -11,7 +25,7 @@ export const englishLabel = {
         emailTitle: "Emails sent",
         newUserTitle: "New Users",
         revenueTitle: "Revenue",
-        trafficTitle: "Traffic",
+        expenseTitle: "Expense",
       },
       financialOverview: {
         revenueTitle: "Revenue Generated",
@@ -138,6 +152,20 @@ export const englishLabel = {
 
 export const khmerLabel = {
   languageStatus: "kh",
+  month: [
+    "មករា",
+    "កុម្ភៈ",
+    "មីនា",
+    "មេសា",
+    "ឧសភា",
+    "មិថុនា",
+    "កក្កដា",
+    "សីហា",
+    "កញ្ញា",
+    "តុលា",
+    "វិច្ឆិកា",
+    "ធ្នូ",
+  ],
   menu: {
     dashboard: {
       dashboardStatus: "DB",
@@ -149,7 +177,7 @@ export const khmerLabel = {
         emailTitle: "អ៊ីមែលដែលបានផ្ញើ",
         newUserTitle: "អ្នកប្រើថ្មី",
         revenueTitle: "ប្រាក់ចំណូល",
-        trafficTitle: "ចរាចរណ៍",
+        expenseTitle: "ប្រាក់​ចំណាយ",
       },
       financialOverview: {
         revenueTitle: "ប្រាក់ចំណូលដែលបានបង្កើត",
