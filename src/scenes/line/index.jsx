@@ -5,10 +5,12 @@ import { LineChart } from "../../components/LineChart";
 import { useTheme } from "@mui/material/styles";
 import { tokens } from "../../theme";
 import { LanguageModeContext } from "../../languageTheme";
+import { ColorModeContext } from "../../theme";
 
 export const Line = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const lineChartTheme = languageTheme?.menu.charts.LineChart;
 

@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { LanguageModeContext, useLanguageStyle } from "../languageTheme";
-import { tokens } from "../theme";
-import { Typography } from "@mui/material";
-import { useTheme } from "@emotion/react";
-import { Box } from "@mui/material";
+import { tokens, ColorModeContext } from "../theme";
+import { Typography, Box, useTheme } from "@mui/material";
 
 export const Header = ({ title, subtitle }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);
   return (

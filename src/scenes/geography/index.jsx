@@ -7,9 +7,12 @@ import { tokens } from "../../theme";
 import { LanguageModeContext } from "../../languageTheme";
 import { useLanguageStyle } from "../../languageTheme";
 import { Lan } from "@mui/icons-material";
+import { ColorModeContext } from "../../theme";
+
 export const Geography = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const style = useLanguageStyle(languageTheme.languageStatus);
   const geographyChartTheme = languageTheme?.menu.charts.GeographyChart;

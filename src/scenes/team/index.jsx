@@ -8,10 +8,12 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import { Header } from "../../components/Header";
+import { ColorModeContext } from "../../theme";
 
 export const Team = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);
   const teamTheme = languageTheme?.menu.data;

@@ -1,5 +1,5 @@
 import { Box, Icon, IconButton, useTheme } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ColorModeContext, tokens, toggleColorMode } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -17,15 +17,14 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 export const TopBar = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const [colorMode, colorPaletteMode] = useContext(ColorModeContext);
+
+  const [colorMode, colorPaletteMode, paletteMode] =
+    useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageMode, languageTheme } = useContext(LanguageModeContext);
   const languageStatus = languageTheme?.languageStatus;
 
-  const [age, setAge] = useState("");
-
   const handleChange = (event) => {
-    setAge(event.target.value);
     colorPaletteMode.colorPaletteSelector(event.target.value);
   };
 
@@ -53,13 +52,13 @@ export const TopBar = () => {
       </Box>
       {/*Icon */}
       <Box display="flex" gap="0.5rem">
-        {/* <IconButton onClick={colorMode.toggleColorMode}>
+        <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (
             <LightModeOutlinedIcon />
           )}
-        </IconButton> */}
+        </IconButton>
         <IconButton
           sx={{ padding: 0, overflow: "hidden" }}
           onClick={languageMode.toggleLanguageMode}
@@ -111,15 +110,16 @@ export const TopBar = () => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={age}
-              label="Age"
+              value={paletteMode}
+              label="Color Palette"
               onChange={handleChange}
             >
-              <MenuItem value={"skyBlue"}>Sky Blue</MenuItem>
+              <MenuItem value={"purple"}>Purple</MenuItem>
               <MenuItem value={"blue"}>Blue</MenuItem>
-              <MenuItem value={"red"}>Red demon</MenuItem>
-              <MenuItem value={"dark"}>Dark</MenuItem>
-              <MenuItem value={"light"}>Light</MenuItem>
+              <MenuItem value={"red"}>Red</MenuItem>
+              <MenuItem value={"bumblebee"}>Bumblebee</MenuItem>
+              <MenuItem value={"green"}>Green</MenuItem>
+              <MenuItem value={"redPremium"}>Red premium</MenuItem>
             </Select>
           </FormControl>
         </IconButton>

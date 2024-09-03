@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useTheme } from "@emotion/react";
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
 import { mockPieData as data } from "../data/mockData";
+import { ColorModeContext } from "../theme";
 
 export const PieChart = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
 
   const themeObject = {
     background: colors.primary[400],

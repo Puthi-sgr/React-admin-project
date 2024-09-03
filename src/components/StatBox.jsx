@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { Box, useTheme, Typography } from "@mui/material";
-import { tokens } from "../theme";
+import { Box, useTheme, Typography, Icon } from "@mui/material";
+import { ColorModeContext, tokens } from "../theme";
 import { ProgressCircles } from "./ProgressCircles";
 import { LanguageModeContext, useLanguageStyle } from "../languageTheme";
 
 export const StatBox = ({ title, subtitle, icon, progress, increase }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
@@ -19,7 +20,8 @@ export const StatBox = ({ title, subtitle, icon, progress, increase }) => {
         p="0 0px 0 0"
       >
         <Box>
-          {icon}
+          <Box sx={{ colors: colors.greenAccent[500] }}>{icon}</Box>
+
           <Typography
             variant="h4"
             fontWeight="bold"
@@ -46,7 +48,6 @@ export const StatBox = ({ title, subtitle, icon, progress, increase }) => {
           variant="h5"
           fontStyle="italic"
           sx={{ color: colors.greenAccent[600] }}
-
         >
           {increase}
         </Typography>

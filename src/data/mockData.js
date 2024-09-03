@@ -1,5 +1,5 @@
+import { useContext } from "react";
 import { tokens } from "../theme";
-import { englishLabel, khmerLabel } from "../language";
 
 export const mockDataTeam = [
   {
@@ -468,7 +468,7 @@ export const mockPieData = [
 export const mockLineData = (month) => [
   {
     id: "revenue",
-    // color: tokens("dark")?.greenAccent[500],
+    color: tokens("dark")?.greenAccent[500],
 
     data: [
       { x: month[8], y: 10100 },
@@ -488,7 +488,7 @@ export const mockLineData = (month) => [
   },
   {
     id: "expenses",
-    // color: tokens("dark")?.blueAccent[300],
+    color: tokens("dark")?.blueAccent[300],
     data: [
       { x: month[8], y: 9000 },
       { x: month[9], y: 8500 },
@@ -506,7 +506,7 @@ export const mockLineData = (month) => [
   },
   {
     id: "profit",
-    // color: tokens("dark")?.blueAccent[200],
+    color: tokens("dark")?.blueAccent[200],
     data: [
       { x: month[8], y: 1100 },
       { x: month[9], y: 1000 },

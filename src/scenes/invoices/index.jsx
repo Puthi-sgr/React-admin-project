@@ -5,10 +5,12 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataInvoices } from "../../data/mockData";
 import { Header } from "../../components/Header";
+import { ColorModeContext } from "../../theme";
 
 export const Invoices = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const invoiceTheme = languageTheme?.menu.data.invoices;
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);

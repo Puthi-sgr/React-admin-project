@@ -7,10 +7,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMoreOutlined";
 import { tokens } from "../../theme";
 import { Box, Typography, useTheme } from "@mui/material";
+import { ColorModeContext } from "../../theme";
 
 export const FAQ = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const faqTheme = languageTheme?.menu.pages.faq;
   return (

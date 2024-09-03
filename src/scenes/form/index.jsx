@@ -1,16 +1,27 @@
 import React, { useContext } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { TextField, useMediaQuery, Box, Button, Typography } from "@mui/material";
+import {
+  TextField,
+  useMediaQuery,
+  Box,
+  Button,
+  Typography,
+} from "@mui/material";
 import { Header } from "../../components/Header";
 import { LanguageModeContext, useLanguageStyle } from "../../languageTheme";
+import { ColorModeContext } from "../../theme";
+import { tokens } from "../../theme";
+import { useTheme } from "@mui/material";
 
 export const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { languageTheme } = useContext(LanguageModeContext);
   const formTheme = languageTheme?.menu.pages.profileForm;
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);
-
+  const theme = useTheme();
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const handleFormSubmit = (values, { resetForm }) => {
     console.log(values);
     resetForm();
@@ -70,7 +81,11 @@ export const Form = () => {
                 fullWidth
                 variant="filled"
                 type="text"
-                label={<Typography sx={fontStyle}>{formTheme.form.firstName}</Typography>}
+                label={
+                  <Typography sx={fontStyle}>
+                    {formTheme.form.firstName}
+                  </Typography>
+                }
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.firstName}
@@ -79,14 +94,18 @@ export const Form = () => {
                 helperText={touched.firstName && errors.firstName}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: fontStyle
+                  sx: fontStyle,
                 }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label={<Typography sx={fontStyle}>{formTheme.form.lastName}</Typography>}
+                label={
+                  <Typography sx={fontStyle}>
+                    {formTheme.form.lastName}
+                  </Typography>
+                }
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.lastName}
@@ -95,14 +114,16 @@ export const Form = () => {
                 helperText={touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
                 InputProps={{
-                  sx: fontStyle
+                  sx: fontStyle,
                 }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label={<Typography sx={fontStyle}>{formTheme.form.email}</Typography>}
+                label={
+                  <Typography sx={fontStyle}>{formTheme.form.email}</Typography>
+                }
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.email}
@@ -111,14 +132,18 @@ export const Form = () => {
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
                 InputProps={{
-                  sx: fontStyle
+                  sx: fontStyle,
                 }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label={<Typography sx={fontStyle}>{formTheme.form.contactNumber}</Typography>}
+                label={
+                  <Typography sx={fontStyle}>
+                    {formTheme.form.contactNumber}
+                  </Typography>
+                }
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.contact}
@@ -127,14 +152,18 @@ export const Form = () => {
                 helperText={touched.contact && errors.contact}
                 sx={{ gridColumn: "span 4" }}
                 InputProps={{
-                  sx: fontStyle
+                  sx: fontStyle,
                 }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label={<Typography sx={fontStyle}>{formTheme.form.address1}</Typography>}
+                label={
+                  <Typography sx={fontStyle}>
+                    {formTheme.form.address1}
+                  </Typography>
+                }
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.address1}
@@ -143,14 +172,18 @@ export const Form = () => {
                 helperText={touched.address1 && errors.address1}
                 sx={{ gridColumn: "span 4" }}
                 InputProps={{
-                  sx: fontStyle
+                  sx: fontStyle,
                 }}
               />
               <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label={<Typography sx={fontStyle}>{formTheme.form.address2}</Typography>}
+                label={
+                  <Typography sx={fontStyle}>
+                    {formTheme.form.address2}
+                  </Typography>
+                }
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.address2}
@@ -159,13 +192,15 @@ export const Form = () => {
                 helperText={touched.address2 && errors.address2}
                 sx={{ gridColumn: "span 4" }}
                 InputProps={{
-                  sx: fontStyle
+                  sx: fontStyle,
                 }}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                <Typography sx={fontStyle}>{formTheme.form.buttonLabel}</Typography>
+                <Typography sx={fontStyle}>
+                  {formTheme.form.buttonLabel}
+                </Typography>
               </Button>
             </Box>
           </form>

@@ -3,7 +3,7 @@ import { Header } from "../../components/Header";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { LanguageModeContext, useLanguageStyle } from "../../languageTheme";
 import { StatBox } from "../../components/StatBox";
-import { tokens } from "../../theme";
+import { ColorModeContext, tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlined from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
@@ -17,7 +17,8 @@ import { ProgressCircles } from "../../components/ProgressCircles";
 
 export const Dashboard = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
@@ -71,7 +72,7 @@ export const Dashboard = () => {
             increase="+ 2%"
             icon={
               <EmailIcon
-                sx={{ colors: colors.greenAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
           />
@@ -90,7 +91,7 @@ export const Dashboard = () => {
             increase="+ 21%"
             icon={
               <PersonAddIcon
-                sx={{ colors: colors.greenAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
           />
@@ -109,7 +110,7 @@ export const Dashboard = () => {
             increase="+ 13%"
             icon={
               <AttachMoneyOutlinedIcon
-                sx={{ colors: colors.greenAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
           />
@@ -128,7 +129,7 @@ export const Dashboard = () => {
             increase="+ 8%"
             icon={
               <AddShoppingCartOutlinedIcon
-                sx={{ colors: colors.greenAccent[600], fontSize: "26px" }}
+                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
           />
@@ -197,7 +198,7 @@ export const Dashboard = () => {
               colors={colors.grey[100]}
               variant="h5"
               fontWeight="600"
-              sx={fontStyle}
+              sx={{ ...fontStyle, color: colors.grey[100] }}
             >
               {dashboardTheme.financialOverview.transactionTitle}
             </Typography>
@@ -205,6 +206,7 @@ export const Dashboard = () => {
           {mockTransactions.map((transaction, i) => (
             <Box
               key={`${transaction.txId}-${i}`}
+              sx={{ ...fontStyle, color: colors.grey[100] }}
               p="4px 8px"
               display="flex"
               justifyContent="space-between"
@@ -225,7 +227,7 @@ export const Dashboard = () => {
               </Box>
               <Box color={colors.grey[100]}>{transaction.date}</Box>
               <Box
-                backgroundColor={colors.greenAccent[500]}
+                backgroundColor={colors.greenAccent[400]}
                 p="5px 10px"
                 borderRadius="4px"
               >
@@ -242,9 +244,14 @@ export const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           p="30px"
         >
-          <Typography variant="h5" fontWeight="600" sx={fontStyle}>
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ ...fontStyle, color: colors.grey[100] }}
+          >
             {dashboardTheme.saleAnalytics.campaign.campaignTitle}
           </Typography>
+
           <Box
             display="flex"
             flexDirection="column"
@@ -260,7 +267,11 @@ export const Dashboard = () => {
             >
               $9,120
             </Typography>
-            <Typography variant="h5" fontWeight="600" sx={fontStyle}>
+            <Typography
+              variant="h5"
+              fontWeight="600"
+              sx={{ ...fontStyle, color: colors.grey[100] }}
+            >
               {dashboardTheme.saleAnalytics.campaign.campaignSubtitle}
             </Typography>
           </Box>
@@ -274,7 +285,7 @@ export const Dashboard = () => {
           <Typography
             variant="h5"
             fontWeight="600"
-            sx={{ ...fontStyle, p: "" }}
+            sx={{ ...fontStyle, color: colors.grey[100] }}
           >
             {dashboardTheme.saleAnalytics.salesTitle}
           </Typography>
@@ -291,7 +302,7 @@ export const Dashboard = () => {
           <Typography
             variant="h5"
             fontWeight="600"
-            sx={{ ...fontStyle, mb: "15px" }}
+            sx={{ ...fontStyle, color: colors.grey[100] }}
           >
             {dashboardTheme.saleAnalytics.geographyTitle}
           </Typography>

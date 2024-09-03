@@ -4,7 +4,7 @@ import { Sidebar as ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { useState, useEffect } from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import { tokens } from "../../theme";
+import { tokens, ColorModeContext } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -21,7 +21,8 @@ import admin from "../../assets/admin.jpg";
 
 const Item = ({ activeLabel, title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
@@ -52,7 +53,8 @@ const Item = ({ activeLabel, title, to, icon, selected, setSelected }) => {
 
 export const Sidebar = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);
 
@@ -76,10 +78,11 @@ export const Sidebar = () => {
           padding: "5px 35px 5px 20px !important",
         },
         "& .ps-menu-button:hover *": {
-          color: "#868dfb !important",
+          color: `${colors.primary[700]} !important`,
         },
         "& .ps-active": {
-          color: "#6870fa !important",
+          color: `${colors.primary[900]} !important`,
+          backgroundColor: `${colors.blueAccent[100]} !important`,
           transition: "ease-in-out 0.20s",
         },
         "& .ps-sidebar-root": {

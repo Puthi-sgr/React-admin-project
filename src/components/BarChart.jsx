@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useTheme } from "@emotion/react";
 import { ResponsiveBar } from "@nivo/bar";
-import { tokens } from "../theme";
+import { tokens, ColorModeContext } from "../theme";
 import { mockBarData as data } from "../data/mockData";
 
 export const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
 
   const themeObject = {
     background: isDashboard ? "transparent" : colors.primary[400],

@@ -20,12 +20,14 @@ import { useLanguageMode } from "./languageTheme";
 import { CrispChat } from "./Crispchat";
 const App = () => {
   const [languageMode, languageTheme, language] = useLanguageMode();
-  const [theme, colorMode, colorPaletteMode] = useMode();
+  const [theme, colorMode, colorPaletteMode, paletteMode] = useMode();
   return (
     <LanguageModeContext.Provider
       value={{ languageMode, languageTheme, language }}
     >
-      <ColorModeContext.Provider value={[colorMode, colorPaletteMode]}>
+      <ColorModeContext.Provider
+        value={[colorMode, colorPaletteMode, paletteMode]}
+      >
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <div className="App">

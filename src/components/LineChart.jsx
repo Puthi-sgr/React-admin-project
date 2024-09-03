@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import { useTheme } from "@emotion/react";
 import { ResponsiveLine } from "@nivo/line";
-import { tokens } from "../theme";
+import { tokens, ColorModeContext } from "../theme";
 import { mockLineData } from "../data/mockData";
 import { geoLocalizedMockData } from "../data/mockData";
 import { LanguageModeContext } from "../languageTheme";
 
 export const LineChart = ({ isDashboard = false }) => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const { languageTheme } = useContext(LanguageModeContext);
 
   const themeObject = {

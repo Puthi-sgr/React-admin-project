@@ -16,10 +16,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
 import listPlugin from "@fullcalendar/list";
 import { tokens } from "../../theme";
+import { ColorModeContext } from "../../theme";
 
 export const Calendar = () => {
   const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const [, , paletteMode] = useContext(ColorModeContext);
+  const colors = tokens(theme.palette.mode, paletteMode);
   const [currentEvents, setCurrentEvents] = useState([]);
   const { languageTheme } = useContext(LanguageModeContext);
   const fontStyle = useLanguageStyle(languageTheme.languageStatus);
